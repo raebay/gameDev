@@ -3400,8 +3400,7 @@ Animator:
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed by
     Humanoid clips.\n\tTransform 'L Weapon'\n\tTransform 'L Weapon'\n\tTransform 'L
-    Weapon'\n\tFrom animation clip '1HCombatIdle'\n\tFrom animation clip '1HCombatRunF'\n\tFrom
-    animation clip '1HAttack'"
+    Weapon'\n\tFrom animation clip '1HCombatIdle'\n\tFrom animation clip '1HCombatRunF'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &976724146
@@ -6987,7 +6986,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1817511649}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.824, y: 1, z: -0.01}
+  m_LocalPosition: {x: -2.824, y: 1.47, z: -3.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
