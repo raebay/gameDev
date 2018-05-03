@@ -21,7 +21,6 @@ public class EnemyAI : MonoBehaviour {
     {
         charController = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
-     //   StartCoroutine(InvokeJump());
         StartCoroutine(InvokeWalk());
         StartCoroutine(InvokeJump());
         StartCoroutine(InvokeAttack());
@@ -36,33 +35,37 @@ public class EnemyAI : MonoBehaviour {
 
         if (isAttacking)
         {
-            anim.SetBool("attacking", true);
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
+            {
+                anim.ResetTrigger("jumping");
+                anim.SetTrigger("attacking");
+            }
+
         }
         else if (isRunning)
         {
-            anim.SetBool("running", true);
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("running"))
+            {
+                anim.SetBool("running", true);
+            }
+
         }
         else if (isJumping) {
-            anim.SetBool("jumping", true);
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("jumping"))
+            {
+                anim.ResetTrigger("attacking");
+                anim.SetTrigger("jumping");
+            }
+
         }
         if (charController.isGrounded)
         {
-            //transform.LookAt(player.transform.position);
-            ////Feed moveDirection with input.
-            //moveDirection = new Vector3(Random.Range(0,2.0f), 0, Random.Range(0,2.0f));
-            //anim.SetBool("running", true);
-            //moveDirection = transform.TransformDirection(moveDirection);
-            ////Multiply it by speed.
-            //moveDirection *= speed;
-            ////StartCoroutine(Jump(Random.Range(2, 6)));
             canJump = true;
-
         }
 
         //If enemy has fallen off platform
         else if (canJump && !charController.isGrounded && (transform.position.x > 11 || transform.position.x < -11 || (transform.position.z > 11 || transform.position.z < -11)))
         {
-            isRunning = false;
             isJumping = true;
 
             transform.LookAt(player.transform.position);
@@ -91,8 +94,6 @@ public class EnemyAI : MonoBehaviour {
             moveDirection *= speed;
             Invoke("JumpOnce", .15f);
             canJump = false;
-            isRunning = true;
-            isJumping = false;
         }
         //Applying gravity to the controller
         moveDirection.y -= gravity * Time.deltaTime;
@@ -104,15 +105,9 @@ public class EnemyAI : MonoBehaviour {
     private void LaunchAttack(Collider col) {
         Collider[] cols = Physics.OverlapSphere(col.bounds.center, 2, LayerMask.GetMask("Fight"));
         foreach (Collider c in cols) {
-
-            isAttacking = true;
-         //   if (c.transform.parent.parent = transform)
-         //   {
-        //   }
-          
                 float damage = 10;
-                c.SendMessageUpwards("TakeDamage", damage);
-            isAttacking = false;
+            isAttacking = true;
+            c.SendMessageUpwards("TakeDamage", damage);
         }
     }
 
@@ -125,9 +120,12 @@ public class EnemyAI : MonoBehaviour {
     {
         while (true)
         {
-            if (playerxDiff < 0.5f && playerxDiff < 0.5f)
+            if (playerxDiff < 1.5f && playerxDiff < 1.5f)
             {
                 LaunchAttack(spearCollider);
+            }
+            else {
+                isAttacking = false;
             }
             yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
         }
@@ -137,24 +135,20 @@ public class EnemyAI : MonoBehaviour {
     IEnumerator InvokeJump() {
         while (true) {
             Jump(Random.Range(2,5));
-            isJumping = false;
-            isRunning = true;
             yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
         }
         
     }
 
     void Jump(float jumpPower) {
-   //     anim.SetBool("jumping", true);
-     //   anim.SetBool("running", false);
         moveDirection.y = jumpPower;
         isJumping = true;
-        isRunning = false;
     }
 
     IEnumerator InvokeWalk() {
         while (true) {
             Walk();
+            isRunning = true;
             yield return new WaitForSeconds(Random.Range(1, 2));
         }
     }
@@ -165,7 +159,6 @@ public class EnemyAI : MonoBehaviour {
             transform.LookAt(player.transform.position);
             //Feed moveDirection with input.
             moveDirection = new Vector3(Random.Range(0, 2.0f), 0, Random.Range(0, 2.0f));
-            isRunning = true;
             moveDirection = transform.TransformDirection(moveDirection);
             //Multiply it by speed.
             moveDirection *= speed;
