@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.7435808, g: 0.36967856, b: 0.234438, a: 1}
+  m_IndirectSpecularColor: {r: 0.7435836, g: 0.36958084, b: 0.2343727, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4694,7 +4694,7 @@ GameObject:
   - component: {fileID: 1741633825}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4712,7 +4712,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!23 &1741633826
 MeshRenderer:
@@ -5695,6 +5695,10 @@ Prefab:
     - target: {fileID: 1499849044589276, guid: a6036004c2a970e4eb87b511270b161a, type: 2}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587919496413974, guid: a6036004c2a970e4eb87b511270b161a, type: 2}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a6036004c2a970e4eb87b511270b161a, type: 2}
