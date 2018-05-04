@@ -31,6 +31,8 @@ public class PlayerMovementController : NetworkBehaviour {
     Ray rA;
     RaycastHit aHit;
     Animator anim;
+    NetworkAnimator netanim;
+
 
     bool isRunning, isJumping, isAttacking;
 
@@ -45,6 +47,8 @@ public class PlayerMovementController : NetworkBehaviour {
     {
         body = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        netanim = GetComponent<NetworkAnimator>();
+
 
     }
 
@@ -102,6 +106,7 @@ public class PlayerMovementController : NetworkBehaviour {
             {
                 if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
                 {
+
                     anim.ResetTrigger("jumping");
                     anim.SetTrigger("attacking");
                 }
@@ -109,7 +114,7 @@ public class PlayerMovementController : NetworkBehaviour {
             }
             else if (isRunning)
             {
-                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("running"))
+                if (!anim.GetCurrentAnimatorStateInfo(1).IsName("running"))
                 {
                     anim.SetBool("running", true);
                 }
@@ -117,7 +122,7 @@ public class PlayerMovementController : NetworkBehaviour {
             }
             else if (isJumping)
             {
-                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("jumping"))
+                if (!anim.GetCurrentAnimatorStateInfo(2).IsName("jumping"))
                 {
                     anim.ResetTrigger("attacking");
                     anim.SetTrigger("jumping");
@@ -146,7 +151,7 @@ public class PlayerMovementController : NetworkBehaviour {
             }
             body.MoveRotation(server_turn); //turn player towards mouse
             body.AddForce(speed * (new Vector3(server_h, 0, server_v))); //move player
-            if (transform.position.y > .48f && transform.position.y < .51f)// ground check
+            if (transform.position.y > .16f && transform.position.y < .18f)// ground check
             {
                 isInAir = false;
             }

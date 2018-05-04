@@ -715,6 +715,7 @@ GameObject:
   - component: {fileID: 114708840520466102}
   - component: {fileID: 114453605384872520}
   - component: {fileID: 114737621754130324}
+  - component: {fileID: 114049262148561804}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Player
@@ -1643,7 +1644,7 @@ Transform:
   m_GameObject: {fileID: 1587919496413974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.20910859, y: -0.0000003799796, z: -4.338682}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4399350447280432}
   - {fileID: 4173930568976544}
@@ -2527,6 +2528,25 @@ Animator:
     Weapon'\n\tFrom animation clip '1HCombatIdle'\n\tFrom animation clip '1HCombatRunF'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114049262148561804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1587919496413974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95843024592320346}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114453605384872520
 MonoBehaviour:
   m_ObjectHideFlags: 1

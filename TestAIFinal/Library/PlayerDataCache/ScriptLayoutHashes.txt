@@ -1,4 +1,6 @@
 WindowsStandalone
+PlayerPath?
+C:/Users/Alex/Desktop/RoDTest/Test.exe
 SceneListBegin?
 Assets/FireScene.unity
 SceneListEnd?
@@ -181,3 +183,9 @@ a2fae0523a1110569bb2a8b5975ef31b Assembly-CSharp.dll:.Missile
 5bb27f9be89fb0d27339720ef10b2ade Assembly-CSharp.dll:.killParticle
 72b6ac78749a7de5ce265461afa49233 Assembly-CSharp.dll:.FaceCamera
 2e537f0f6729f3867b5013607b3bdd5a Assembly-CSharp.dll:.PlatformScale
+9e0ef5bf862444b5dc48b5a99554ce7c UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioListenerExtension
+67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
+67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
+9e0ef5bf862444b5dc48b5a99554ce7c UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioListenerExtension
+67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
+67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension

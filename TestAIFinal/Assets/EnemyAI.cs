@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class EnemyAI : MonoBehaviour {
+public class EnemyAI : NetworkBehaviour {
 
     Animator anim;
     CharacterController charController;
@@ -36,75 +37,80 @@ public class EnemyAI : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        playerxDiff = transform.position.x - player.transform.position.x;
-        playerzDiff = transform.position.z - player.transform.position.z;
-
-        if (isAttacking)
+        if (isServer)
         {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
+            playerxDiff = transform.position.x - player.transform.position.x;
+            playerzDiff = transform.position.z - player.transform.position.z;
+
+            if (isAttacking)
             {
-                anim.ResetTrigger("jumping");
-                anim.SetTrigger("attacking");
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
+                {
+                    anim.ResetTrigger("jumping");
+                    anim.SetTrigger("attacking");
+                }
+
+            }
+            else if (isRunning)
+            {
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("running"))
+                {
+                    anim.SetBool("running", true);
+                }
+
+            }
+            else if (isJumping)
+            {
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("jumping"))
+                {
+                    anim.ResetTrigger("attacking");
+                    anim.SetTrigger("jumping");
+                }
+
+            }
+            if (charController.isGrounded)
+            {
+                canJump = true;
             }
 
+            //If enemy has fallen off platform
+            else if (canJump && !charController.isGrounded && (transform.position.x > 11 || transform.position.x < -11 || (transform.position.z > 11 || transform.position.z < -11)))
+            {
+                isJumping = true;
+
+                transform.LookAt(player.transform.position);
+                if (transform.position.x > 11)
+                {
+                    moveDirection = new Vector3(-2, 0, 0);
+
+                }
+                else if (transform.position.x < -11)
+                {
+                    moveDirection = new Vector3(2, 0, 0);
+
+                }
+                else if (transform.position.z > 11)
+                {
+                    moveDirection = new Vector3(0, 0, -2);
+
+                }
+                else if (transform.position.z < -11)
+                {
+                    moveDirection = new Vector3(0, 0, 2);
+
+                }
+                moveDirection = transform.TransformDirection(moveDirection);
+                //Multiply it by speed.
+                moveDirection *= speed;
+                Invoke("JumpOnce", .15f);
+                canJump = false;
+            }
+            //Applying gravity to the controller
+            moveDirection.y -= gravity * Time.deltaTime;
+            //Making the character move
+            charController.Move(moveDirection * Time.deltaTime);
         }
-        else if (isRunning)
-        {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("running"))
-            {
-                anim.SetBool("running", true);
-            }
-
-        }
-        else if (isJumping) {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("jumping"))
-            {
-                anim.ResetTrigger("attacking");
-                anim.SetTrigger("jumping");
-            }
-
-        }
-        if (charController.isGrounded)
-        {
-            canJump = true;
-        }
-
-        //If enemy has fallen off platform
-        else if (canJump && !charController.isGrounded && (transform.position.x > 11 || transform.position.x < -11 || (transform.position.z > 11 || transform.position.z < -11)))
-        {
-            isJumping = true;
-
-            transform.LookAt(player.transform.position);
-            if (transform.position.x > 11)
-            {
-                moveDirection = new Vector3(-2, 0, 0);
-
-            }
-            else if (transform.position.x < -11)
-            {
-                moveDirection = new Vector3(2, 0, 0);
-
-            }
-            else if (transform.position.z > 11)
-            {
-                moveDirection = new Vector3(0, 0, -2);
-
-            }
-            else if (transform.position.z < -11)
-            {
-                moveDirection = new Vector3(0, 0, 2);
-
-            }
-            moveDirection = transform.TransformDirection(moveDirection);
-            //Multiply it by speed.
-            moveDirection *= speed;
-            Invoke("JumpOnce", .15f);
-            canJump = false;
-        }
-        //Applying gravity to the controller
-        moveDirection.y -= gravity * Time.deltaTime;
-        //Making the character move
-        charController.Move(moveDirection * Time.deltaTime);
+        
 
     }
     /*
