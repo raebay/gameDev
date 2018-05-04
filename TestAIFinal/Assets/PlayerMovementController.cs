@@ -30,6 +30,9 @@ public class PlayerMovementController : NetworkBehaviour {
     Quaternion temp_turn;
     Ray rA;
     RaycastHit aHit;
+    Animator anim;
+
+    bool isRunning, isJumping, isAttacking;
 
     // Animator anim;
     // Use this for initialization
@@ -41,6 +44,8 @@ public class PlayerMovementController : NetworkBehaviour {
     public override void OnStartServer()
     {
         body = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+
     }
 
     [Command]
@@ -60,6 +65,7 @@ public class PlayerMovementController : NetworkBehaviour {
 
         if(isClient && isLocalPlayer)
         {
+
             //get Inputs
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
@@ -92,9 +98,36 @@ public class PlayerMovementController : NetworkBehaviour {
         }
         if (isServer)
         {
+            if (isAttacking)
+            {
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("attacking"))
+                {
+                    anim.ResetTrigger("jumping");
+                    anim.SetTrigger("attacking");
+                }
+
+            }
+            else if (isRunning)
+            {
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("running"))
+                {
+                    anim.SetBool("running", true);
+                }
+
+            }
+            else if (isJumping)
+            {
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("jumping"))
+                {
+                    anim.ResetTrigger("attacking");
+                    anim.SetTrigger("jumping");
+                }
+
+            }
             // Move the rigid body
             if ((server_v == 0 || server_h == 0) && !attacking && !hurt)//Stops the player from sliding when releasing movement buttons by setting velocity and angular velocity values to 0
             {
+                isRunning = true;
                 if(server_v == 0)
                 {
                     body.velocity = new Vector3(body.velocity.x, body.velocity.y, 0);
@@ -120,9 +153,11 @@ public class PlayerMovementController : NetworkBehaviour {
             else
             {
                 isInAir = true;
+                isJumping = true;
             }
             if (server_j && !isInAir) //Jump if on ground and player hits space bar
             {
+                isJumping = true;
                 server_j = false;
                 body.AddForce(7 * (new Vector3(0, 1, 0)), ForceMode.Impulse);
             }
@@ -179,6 +214,7 @@ public class PlayerMovementController : NetworkBehaviour {
         
         attacking = true;
         body.AddForce(transform.forward * 20, ForceMode.Impulse);
+        isAttacking = true;
         Invoke("endAttack", .5f);
         print("attacked enemy" + playerDamage);
     }
@@ -193,6 +229,7 @@ public class PlayerMovementController : NetworkBehaviour {
     {
         attacking = false;
         attacking2 = false;
+        isAttacking = false;
     }
     public void endHurt()
     {

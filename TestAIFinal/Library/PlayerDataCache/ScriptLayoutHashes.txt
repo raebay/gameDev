@@ -1,9 +1,4 @@
 WindowsStandalone
-<<<<<<< HEAD
-=======
-PlayerPath?
-C:/Users/Alex/Desktop/RoDTest/Test.exe
->>>>>>> 00f7feaec0bc1bb6676bbc592e195f3cc7fd1d6e
 SceneListBegin?
 Assets/FireScene.unity
 SceneListEnd?
@@ -88,11 +83,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 30ad8a09875890b2e10cb41c365871c9 Assembly-CSharp.dll:DigitalRuby.PyroParticles.FireProjectileScript
-<<<<<<< HEAD
-ff1f62335694b8de1982795550f18b78 Assembly-CSharp.dll:.EnemyAI
-=======
-bc7e8cd57a45110de7e2b884e38164b2 Assembly-CSharp.dll:.EnemyAI
->>>>>>> 00f7feaec0bc1bb6676bbc592e195f3cc7fd1d6e
+5524d442a87652dc37e90559639fd14e Assembly-CSharp.dll:.EnemyAI
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -170,11 +161,7 @@ f931a0c703bca68d4fa4bc65b083edc5 Assembly-CSharp.dll:.CharacterPhysicsController
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
-<<<<<<< HEAD
-6f5945ca6b112251a3048b454c2c5478 Assembly-CSharp.dll:.PlayerMovementController
-=======
 e704808a7943ff1169fcb57380839d0d Assembly-CSharp.dll:.PlayerMovementController
->>>>>>> 00f7feaec0bc1bb6676bbc592e195f3cc7fd1d6e
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SetSceneBuffer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SkinnedMeshCombiner
@@ -194,12 +181,3 @@ a2fae0523a1110569bb2a8b5975ef31b Assembly-CSharp.dll:.Missile
 5bb27f9be89fb0d27339720ef10b2ade Assembly-CSharp.dll:.killParticle
 72b6ac78749a7de5ce265461afa49233 Assembly-CSharp.dll:.FaceCamera
 2e537f0f6729f3867b5013607b3bdd5a Assembly-CSharp.dll:.PlatformScale
-<<<<<<< HEAD
-=======
-9e0ef5bf862444b5dc48b5a99554ce7c UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioListenerExtension
-67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
-67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
-9e0ef5bf862444b5dc48b5a99554ce7c UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioListenerExtension
-67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
-67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
->>>>>>> 00f7feaec0bc1bb6676bbc592e195f3cc7fd1d6e
