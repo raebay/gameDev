@@ -6,7 +6,7 @@ public class EnemyAI : MonoBehaviour {
 
     Animator anim;
     CharacterController charController;
-    public Collider spearCollider;
+    //public Collider spearCollider;
     public float speed = 2.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
@@ -16,6 +16,11 @@ public class EnemyAI : MonoBehaviour {
     private bool canJump = true;
     float playerxDiff, playerzDiff;
     bool isRunning, isJumping, isAttacking;
+    GameObject target;
+    public bool attacking = false;
+    public bool hurt = false;
+    Rigidbody body;
+    public float playerDamage = 0;
 
     void Start()
     {
@@ -24,6 +29,7 @@ public class EnemyAI : MonoBehaviour {
         StartCoroutine(InvokeWalk());
         StartCoroutine(InvokeJump());
         StartCoroutine(InvokeAttack());
+        body = GetComponent<Rigidbody>();
 
     }
 
@@ -101,7 +107,7 @@ public class EnemyAI : MonoBehaviour {
         charController.Move(moveDirection * Time.deltaTime);
 
     }
-
+    /*
     private void LaunchAttack(Collider col) {
         Collider[] cols = Physics.OverlapSphere(col.bounds.center, 2, LayerMask.GetMask("Fight"));
         foreach (Collider c in cols) {
@@ -109,10 +115,43 @@ public class EnemyAI : MonoBehaviour {
             isAttacking = true;
             c.SendMessageUpwards("TakeDamage", damage);
         }
+    }*/
+
+    void Attack()
+    {
+        attacking = true;
+        //body.AddForce(transform.forward * 20, ForceMode.Impulse);
+        isAttacking = true;
+        Invoke("endAttack", .5f);
+    }
+    public void endAttack()
+    {
+        attacking = false;
+    }
+    public void endHurt()
+    {
+        Invoke("stopHurt", 1f);
+    }
+    public void stopHurt()
+    {
+        hurt = false;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (attacking && collision.collider.tag == "Player")
+        {
+            collision.collider.GetComponent<PlayerMovementController>().playerDamage += 10;
+            print("attacked player " + playerDamage);
+            collision.collider.GetComponent<PlayerMovementController>().hurt = true;
+            collision.collider.GetComponent<PlayerMovementController>().endHurt();
+            collision.collider.GetComponent<Rigidbody>().AddForce(body.velocity.normalized * collision.collider.GetComponent<PlayerMovementController>().playerDamage, ForceMode.Impulse);
+            body.velocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+        }
     }
 
     void JumpOnce() {
-
+        
         moveDirection.y = 7;
     }
 
@@ -120,12 +159,13 @@ public class EnemyAI : MonoBehaviour {
     {
         while (true)
         {
-            if (playerxDiff < 1.5f && playerxDiff < 1.5f)
+            if (Mathf.Abs(playerxDiff) < 1.5f && Mathf.Abs(playerzDiff) < 1.5f)
             {
-                LaunchAttack(spearCollider);
+                Attack();
             }
             else {
                 isAttacking = false;
+                attacking = false;
             }
             yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
         }

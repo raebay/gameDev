@@ -52,7 +52,7 @@ public class PlayerMovementController : NetworkBehaviour {
         server_turn = t;
         server_atk1 = a1;
         server_atk2 = a2;
-        print(a2);
+        //print(a2);
     }
 
     // Update is called once per frame
@@ -180,6 +180,7 @@ public class PlayerMovementController : NetworkBehaviour {
         attacking = true;
         body.AddForce(transform.forward * 20, ForceMode.Impulse);
         Invoke("endAttack", .5f);
+        print("attacked enemy" + playerDamage);
     }
     void AttackTwo() {
         attacking2 = true;
@@ -193,7 +194,7 @@ public class PlayerMovementController : NetworkBehaviour {
         attacking = false;
         attacking2 = false;
     }
-    void endHurt()
+    public void endHurt()
     {
         Invoke("stopHurt", 1f);
     }
@@ -212,10 +213,20 @@ public class PlayerMovementController : NetworkBehaviour {
             body.velocity = Vector3.zero;
             body.angularVelocity = Vector3.zero;
         }
+
+       else if (attacking && collision.collider.tag == "Enemy")
+       {
+            collision.collider.GetComponent<EnemyAI>().playerDamage += 10;
+            collision.collider.GetComponent<EnemyAI>().hurt = true;
+            collision.collider.GetComponent<EnemyAI>().endHurt();
+            collision.collider.GetComponent<Rigidbody>().AddForce(body.velocity.normalized * collision.collider.GetComponent<EnemyAI>().playerDamage, ForceMode.Impulse);
+            body.velocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+       }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             target = other.gameObject;
             /*for (int i = 0; i < inRange.Length; i++)
